@@ -72,7 +72,7 @@ namespace AutoTable
 
 
         bool clickFlipFlop = true;
-        public void MainLoop()
+        public void MainEventChain()
         {
             Bitmap workbitmap = GetChestScreenshot();
             int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
@@ -196,7 +196,7 @@ namespace AutoTable
             if (running)
             {
                 Random rnd = new Random();
-                MainLoop();
+                MainEventChain();
                 timer1.Interval = 300 + rnd.Next(-200, 200);
                 label1.Text = "TICKRATE" + timer1.Interval;
 
