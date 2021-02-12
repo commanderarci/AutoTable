@@ -44,6 +44,7 @@ namespace AutoTable
             this.PreviewButton = new System.Windows.Forms.Button();
             this.GreenTriggerNumeric = new System.Windows.Forms.NumericUpDown();
             this.ResetClicksButton = new System.Windows.Forms.Button();
+            this.ClickInformartionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
@@ -87,7 +88,7 @@ namespace AutoTable
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1116, 73);
+            this.label1.Location = new System.Drawing.Point(1064, 247);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 4;
@@ -165,7 +166,7 @@ namespace AutoTable
             // 
             this.GreenTriggerNumeric.Location = new System.Drawing.Point(1107, 146);
             this.GreenTriggerNumeric.Name = "GreenTriggerNumeric";
-            this.GreenTriggerNumeric.Size = new System.Drawing.Size(44, 20);
+            this.GreenTriggerNumeric.Size = new System.Drawing.Size(105, 20);
             this.GreenTriggerNumeric.TabIndex = 12;
             this.GreenTriggerNumeric.Value = new decimal(new int[] {
             100,
@@ -184,11 +185,21 @@ namespace AutoTable
             this.ResetClicksButton.UseVisualStyleBackColor = true;
             this.ResetClicksButton.Click += new System.EventHandler(this.ResetClicksButton_Click);
             // 
+            // ClickInformartionLabel
+            // 
+            this.ClickInformartionLabel.AutoSize = true;
+            this.ClickInformartionLabel.Location = new System.Drawing.Point(1064, 57);
+            this.ClickInformartionLabel.Name = "ClickInformartionLabel";
+            this.ClickInformartionLabel.Size = new System.Drawing.Size(41, 13);
+            this.ClickInformartionLabel.TabIndex = 14;
+            this.ClickInformartionLabel.Text = "STUFF";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.ClickInformartionLabel);
             this.Controls.Add(this.ResetClicksButton);
             this.Controls.Add(this.GreenTriggerNumeric);
             this.Controls.Add(this.PreviewButton);
@@ -232,6 +243,7 @@ namespace AutoTable
         private System.Windows.Forms.Button PreviewButton;
         private System.Windows.Forms.NumericUpDown GreenTriggerNumeric;
         private System.Windows.Forms.Button ResetClicksButton;
+        private System.Windows.Forms.Label ClickInformartionLabel;
     }
 }
 

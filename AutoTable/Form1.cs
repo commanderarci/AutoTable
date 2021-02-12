@@ -235,6 +235,7 @@ namespace AutoTable
             //This will be called every click
             counter++;
             counter_label.Text = "Clicks: " + Convert.ToString(counter);
+            ClickInformartionLabel.Text = "INFORMATION ON TIER /n Stufff";
         }
     }
 }
