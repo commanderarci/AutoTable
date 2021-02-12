@@ -69,9 +69,9 @@ namespace AutoTable
                 timer1.Interval = 1000;
             }
         }
-        
 
 
+        bool clickFlipFlop = true;
         public void MainLoop()
         {
             Bitmap workbitmap = GetChestScreenshot();
@@ -114,7 +114,19 @@ namespace AutoTable
             if (bestcolor.G > 100)
             {
                 // Click on the best candidate
-                DoMouseClick(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
+                if (clickFlipFlop)
+                {
+                    //Click on position
+                    DoMouseClick(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
+                    CounterClicker();
+                    clickFlipFlop = !clickFlipFlop;
+                }
+                else
+                {
+                    //Move to position
+                    DoMouseMove(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
+                    clickFlipFlop = !clickFlipFlop;
+                }
             }
 
 
@@ -166,22 +178,18 @@ namespace AutoTable
             
             return captureBitmap;
         }
-        bool toggle = true;
+        public void DoMouseMove(int iX, int iY)
+        {
+            uint X = Convert.ToUInt32(iX);
+            uint Y = Convert.ToUInt32(iY);
+            Cursor.Position = new Point(iX, iY);
+            //ADD SMALL DELAY FOR MAGIC TO HAPPEN
+        }
         public void DoMouseClick(int iX, int iY)
         {
             uint X = Convert.ToUInt32(iX);
             uint Y = Convert.ToUInt32(iY);
-            if (toggle)
-            {
-                Cursor.Position = new Point(iX, iY);
-                //ADD SMALL DELAY FOR MAGIC TO HAPPEN
-                toggle = !toggle;
-            }
-            else
-            {
-                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
-                toggle = !toggle;
-            }
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }        
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -189,8 +197,6 @@ namespace AutoTable
             {
                 Random rnd = new Random();
                 MainLoop();
-                counter++;
-                counter_label.Text = Convert.ToString(counter);
                 timer1.Interval = 300 + rnd.Next(-200, 200);
                 label1.Text = "TICKRATE" + timer1.Interval;
 
@@ -214,7 +220,21 @@ namespace AutoTable
             BlackListerColors.Add(Color.FromArgb(118, 198, 16));
             BlackListerColors.Add(Color.FromArgb(101, 172, 9));
             BlackListerColors.Add(Color.FromArgb(90, 154, 8));
+            BlackListerColors.Add(Color.FromArgb(75, 106, 34));
+            BlackListerColors.Add(Color.FromArgb(85, 124, 32));
+            BlackListerColors.Add(Color.FromArgb(79, 113, 33));
+            BlackListerColors.Add(Color.FromArgb(96, 145, 30));
+        }
 
+        private void ResetClicksButton_Click(object sender, EventArgs e)
+        {
+            counter_label.Text = "Clicks: ";
+        }
+        public void CounterClicker()
+        {
+            //This will be called every click
+            counter++;
+            counter_label.Text = "Clicks: " + Convert.ToString(counter);
         }
     }
 }
