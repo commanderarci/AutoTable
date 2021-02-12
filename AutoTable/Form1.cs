@@ -27,6 +27,9 @@ namespace AutoTable
         bool running = false;
         bool preview = false;
         int counter = 0;
+
+        List<Color> BlackListerColors = new List<Color>();
+
         public Form1()
         {
             InitializeComponent();
@@ -66,6 +69,8 @@ namespace AutoTable
                 timer1.Interval = 1000;
             }
         }
+        
+
 
         public void MainLoop()
         {
@@ -75,7 +80,6 @@ namespace AutoTable
             Color bestcolor =  Color.FromArgb(0,0,0);
             int bestX = 0, bestY = 0;
 
-
             for (int x = 0; x < gridLeft; x++)
             {
                 for (int y = 0; y < gridTop; y++)
@@ -83,26 +87,26 @@ namespace AutoTable
                     if (x * offsetLeft < workbitmap.Width && y * offsetTop < workbitmap.Height)
                     {
                         Color canditateColor = workbitmap.GetPixel(x * offsetLeft, y * offsetTop);
-                        float greenValue = canditateColor.G - canditateColor.R - canditateColor.B;
-                        if (greenValue > bestcolor.G)
+                        if (!BlackListerColors.Contains(canditateColor))
                         {
-                            bestcolor = canditateColor;
-                            bestX = x * offsetLeft;
-                            bestY = y * offsetTop;
+                            float greenValue = canditateColor.G - canditateColor.R - canditateColor.B;
+                            if (greenValue > bestcolor.G)
+                            {
+                                bestcolor = canditateColor;
+                                bestX = x * offsetLeft;
+                                bestY = y * offsetTop;
+                            }
+                            //Color canditates
+                            if (greenValue > 0)
+                            {
+                                Color tempcolor = Color.FromArgb(0, (int)greenValue, 0);
+                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor);
+                            }
+                            else
+                            {
+                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
+                            }
                         }
-                        //Color canditates
-                        if (greenValue > 0)
-                        {
-                            Color tempcolor = Color.FromArgb(0, (int)greenValue, 0);
-                            workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor);
-                        }
-                        else
-                        {
-                            workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
-                        }
-                        
-                        
-
                     }
                 }
             }
@@ -201,6 +205,16 @@ namespace AutoTable
         {
             Color bestcolor = Color.FromArgb(0,(int)GreenTriggerNumeric.Value, 0);
             GreenTriggerNumeric.BackColor = bestcolor;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //ADD BLACKLISTED COLROS
+            BlackListerColors.Add(Color.FromArgb(131,212,28));
+            BlackListerColors.Add(Color.FromArgb(118, 198, 16));
+            BlackListerColors.Add(Color.FromArgb(101, 172, 9));
+            BlackListerColors.Add(Color.FromArgb(90, 154, 8));
+
         }
     }
 }

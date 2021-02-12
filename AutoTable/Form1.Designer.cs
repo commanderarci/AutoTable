@@ -194,6 +194,7 @@ namespace AutoTable
             this.Name = "Form1";
             this.Opacity = 0.75D;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).EndInit();
