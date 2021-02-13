@@ -27,6 +27,7 @@ namespace AutoTable
         bool running = false;
         bool preview = false;
         int counter = 0;
+        int clicks = 0;
 
         List<Color> BlackListerColors = new List<Color>();
 
@@ -125,7 +126,7 @@ namespace AutoTable
                 {
                     //Move to position
                     DoMouseMove(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
-                    clickFlipFlop = !clickFlipFlop;dzd
+                    clickFlipFlop = !clickFlipFlop;
                 }
             }
 
@@ -235,7 +236,29 @@ namespace AutoTable
             //This will be called every click
             counter++;
             counter_label.Text = "Clicks: " + Convert.ToString(counter);
-            ClickInformartionLabel.Text = "INFORMATION ON TIER /n Stufff";
+            if (counter != 79)
+                {
+                if (45 > counter && counter >= 12)
+                {
+                    clicks = 1;
+                }
+                else if (78 > counter && counter >= 45)
+                {
+                    clicks = 2;
+                }
+                else if (counter >= 78)
+                {
+                    clicks = 3;
+                }
+                else 
+                {
+                    clicks = 0;
+                }
+                ClickInformartionLabel.Text = "Amount of extra clicks earned: " + Convert.ToString(clicks);
+                
+            }
+                
         }
+
     }
 }

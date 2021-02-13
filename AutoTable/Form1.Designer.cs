@@ -36,7 +36,6 @@ namespace AutoTable
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ClickPicturebox = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.GridLeftNumeric = new System.Windows.Forms.NumericUpDown();
             this.GridLeftLabel = new System.Windows.Forms.Label();
             this.GridTopLabel = new System.Windows.Forms.Label();
@@ -100,15 +99,6 @@ namespace AutoTable
             this.ClickPicturebox.Size = new System.Drawing.Size(350, 270);
             this.ClickPicturebox.TabIndex = 5;
             this.ClickPicturebox.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1148, 208);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "label2";
             // 
             // GridLeftNumeric
             // 
@@ -188,11 +178,11 @@ namespace AutoTable
             // ClickInformartionLabel
             // 
             this.ClickInformartionLabel.AutoSize = true;
-            this.ClickInformartionLabel.Location = new System.Drawing.Point(1064, 57);
+            this.ClickInformartionLabel.Location = new System.Drawing.Point(1023, 57);
             this.ClickInformartionLabel.Name = "ClickInformartionLabel";
-            this.ClickInformartionLabel.Size = new System.Drawing.Size(41, 13);
+            this.ClickInformartionLabel.Size = new System.Drawing.Size(64, 13);
             this.ClickInformartionLabel.TabIndex = 14;
-            this.ClickInformartionLabel.Text = "STUFF";
+            this.ClickInformartionLabel.Text = "Extra clicks:";
             // 
             // Form1
             // 
@@ -207,7 +197,6 @@ namespace AutoTable
             this.Controls.Add(this.GridTopNumeric);
             this.Controls.Add(this.GridLeftLabel);
             this.Controls.Add(this.GridLeftNumeric);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.ClickPicturebox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.counter_label);
@@ -235,7 +224,6 @@ namespace AutoTable
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox ClickPicturebox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown GridLeftNumeric;
         private System.Windows.Forms.Label GridLeftLabel;
         private System.Windows.Forms.Label GridTopLabel;
