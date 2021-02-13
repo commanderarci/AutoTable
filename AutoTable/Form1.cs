@@ -101,7 +101,7 @@ namespace AutoTable
                             if (greenValue > 0)
                             {
                                 Color tempcolor = Color.FromArgb(0, (int)greenValue, 0);
-                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor);
+                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor,true);
                             }
                             else
                             {
@@ -151,7 +151,9 @@ namespace AutoTable
 
             ClickPicturebox.Image = workbitmap;
         }
-        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap,Color iC)
+
+        int oldX = 0, oldY=0;
+        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iC, bool trackline = false)
         {
             for (int x = -2; x < 2; x++)
             {
@@ -160,11 +162,35 @@ namespace AutoTable
                     if ((ix + x) < inbitmap.Width && (ix + x) > 0 && (iy + y) < inbitmap.Height && (iy + y) > 0)
                     {
                         inbitmap.SetPixel(ix + x, iy + y, iC);
+                        if (trackline)
+                        {
+                            inbitmap = DrawLine(inbitmap,ix + x, iy + y,oldX,oldY);
+                            oldX = 0;
+                            oldY = 0;
+                            oldX += ix + x;
+                            oldY += iy + y;
+
+                        }
                     }
                 }
             }
 
             return inbitmap;
+        }
+
+        public Bitmap DrawLine(Bitmap inputMap,int FromX, int FromY, int ToX, int ToY)
+        {
+            for(int i = FromX; i < ToX; i++)
+            {
+                inputMap.SetPixel(i, i, Color.Black);
+            }
+            for (int i = FromY; i < ToY; i++)
+            {
+                inputMap.SetPixel(i, i, Color.Black);
+            }
+
+
+            return inputMap;
         }
 
         public Bitmap GetChestScreenshot()
