@@ -125,7 +125,7 @@ namespace AutoTable
                 {
                     //Move to position
                     DoMouseMove(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
-                    clickFlipFlop = !clickFlipFlop;
+                    clickFlipFlop = !clickFlipFlop;dzd
                 }
             }
 
