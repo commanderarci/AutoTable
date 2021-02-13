@@ -106,6 +106,9 @@ namespace AutoTable
                             else
                             {
                                 workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
+                                oldX += x * offsetLeft;
+                                oldY += y * offsetTop;
+
                             }
                         }
                     }
@@ -165,11 +168,6 @@ namespace AutoTable
                         if (trackline)
                         {
                             inbitmap = DrawLine(inbitmap,ix + x, iy + y,oldX,oldY);
-                            oldX = 0;
-                            oldY = 0;
-                            oldX += ix + x;
-                            oldY += iy + y;
-
                         }
                     }
                 }
