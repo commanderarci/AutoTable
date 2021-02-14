@@ -77,8 +77,8 @@ namespace AutoTable
         {
             Bitmap workbitmap = GetChestScreenshot();
             int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
-            int offsetLeft = workbitmap.Width/ gridLeft, offsetTop = workbitmap.Width / gridTop;
-            Color bestcolor =  Color.FromArgb(0,0,0);
+            int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
+            Color bestcolor = Color.FromArgb(0, 0, 0);
             int bestX = 0, bestY = 0;
 
             for (int x = 0; x < gridLeft; x++)
@@ -106,9 +106,6 @@ namespace AutoTable
                             else
                             {
                                 workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
-                                oldX += x * offsetLeft;
-                                oldY += y * offsetTop;
-
                             }
                         }
                     }
@@ -149,7 +146,7 @@ namespace AutoTable
                 {
                     if (x * offsetLeft < workbitmap.Width && y * offsetTop < workbitmap.Height)
                     {
-                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap,Color.Black);
+                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Black);
                     }
                 }
             }
@@ -157,7 +154,6 @@ namespace AutoTable
             ClickPicturebox.Image = workbitmap;
         }
 
-        int oldX = 0, oldY=0;
         public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iC)
         {
             for (int x = -2; x < 2; x++)
@@ -179,10 +175,10 @@ namespace AutoTable
             Bitmap captureBitmap = new Bitmap(350, 270, PixelFormat.Format32bppArgb);
             Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
             Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-            captureGraphics.CopyFromScreen(this.Left + McPictureBox.Left + 8 + offsetLeft,this.Top + McPictureBox.Top + 32 + offsetTop, 0, 0, captureRectangle.Size);
+            captureGraphics.CopyFromScreen(this.Left + McPictureBox.Left + 8 + offsetLeft, this.Top + McPictureBox.Top + 32 + offsetTop, 0, 0, captureRectangle.Size);
 
-           
-            
+
+
             return captureBitmap;
         }
         public void DoMouseMove(int iX, int iY)
@@ -197,7 +193,7 @@ namespace AutoTable
             uint X = Convert.ToUInt32(iX);
             uint Y = Convert.ToUInt32(iY);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
-        }        
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (running)
@@ -219,7 +215,7 @@ namespace AutoTable
         }
         public Color GetRandomColor()
         {
-            return Color.FromArgb(GetIntRandomNumber(50,100), GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100));
+            return Color.FromArgb(GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100));
         }
         public void ChangeBackGroundColor()
         {
@@ -229,14 +225,14 @@ namespace AutoTable
 
         private void GreenTriggerNumeric_ValueChanged(object sender, EventArgs e)
         {
-            Color bestcolor = Color.FromArgb(0,(int)GreenTriggerNumeric.Value, 0);
+            Color bestcolor = Color.FromArgb(0, (int)GreenTriggerNumeric.Value, 0);
             GreenTriggerNumeric.BackColor = bestcolor;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //ADD BLACKLISTED COLROS
-            BlackListerColors.Add(Color.FromArgb(131,212,28));
+            BlackListerColors.Add(Color.FromArgb(131, 212, 28));
             BlackListerColors.Add(Color.FromArgb(118, 198, 16));
             BlackListerColors.Add(Color.FromArgb(101, 172, 9));
             BlackListerColors.Add(Color.FromArgb(90, 154, 8));
@@ -256,7 +252,7 @@ namespace AutoTable
             counter++;
             counter_label.Text = "Clicks: " + Convert.ToString(counter);
             if (counter != 79)
-                {
+            {
                 if (45 > counter && counter >= 12)
                 {
                     clicks = 1;
@@ -269,14 +265,14 @@ namespace AutoTable
                 {
                     clicks = 3;
                 }
-                else 
+                else
                 {
                     clicks = 0;
                 }
                 ClickInformartionLabel.Text = "Amount of extra clicks earned: " + Convert.ToString(clicks);
-                
+
             }
-                
+
         }
 
     }
