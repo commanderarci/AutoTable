@@ -156,7 +156,7 @@ namespace AutoTable
 
 
             //Makes tracking lines
-            if (oldBestCanditate != null)
+            if (oldBestCanditate != null && oldBestCanditate.posX != 0 && oldBestCanditate.posY != 0)
             {
                 workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, bestCandidate.posX, bestCandidate.posY, Color.Green);
             }
