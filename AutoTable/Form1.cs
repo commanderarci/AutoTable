@@ -156,7 +156,7 @@ namespace AutoTable
         }
 
         int oldX = 0, oldY=0;
-        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iC, bool trackline = false)
+        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iC)
         {
             for (int x = -2; x < 2; x++)
             {
@@ -165,38 +165,12 @@ namespace AutoTable
                     if ((ix + x) < inbitmap.Width && (ix + x) > 0 && (iy + y) < inbitmap.Height && (iy + y) > 0)
                     {
                         inbitmap.SetPixel(ix + x, iy + y, iC);
-                        if (trackline)
-                        {
-                            inbitmap = DrawLine(inbitmap,ix + x, iy + y,oldX,oldY);
-                        }
                     }
                 }
             }
 
             return inbitmap;
         }
-
-        public Bitmap DrawLine(Bitmap inputMap,int FromX, int FromY, int ToX, int ToY)
-        {
-            for(int i = FromX; i < ToX; i++)
-            {
-                if (i > 0 && i < ToX)
-                {
-                    inputMap.SetPixel(i, FromY, Color.Black);
-                }
-            }
-            for (int i = FromY; i < ToY; i++)
-            {
-                if (i > 0 && i < ToX)
-                {
-                    inputMap.SetPixel(FromX, i, Color.Black);
-                }
-            }
-
-
-            return inputMap;
-        }
-
         public Bitmap GetChestScreenshot()
         {
             int offsetLeft = 250, offsetTop = 50;
