@@ -49,6 +49,7 @@ namespace AutoTable
 
                 DancePictureBox.Visible = true;
                 DancePictureBox.Enabled = true;
+                BackgroundPicturebox.Visible = true;
             }
             else
             {
@@ -59,6 +60,7 @@ namespace AutoTable
 
                 DancePictureBox.Visible = false;
                 DancePictureBox.Enabled = false;
+                BackgroundPicturebox.Visible = false;
             }
         }
         private void PreviewButton_Click(object sender, EventArgs e)
@@ -123,8 +125,6 @@ namespace AutoTable
 
             if (bestcolor.G > 100)
             {
-                //Change random color of background
-                ChangeBackGroundColor();
                 // Click on the best candidate
                 if (clickFlipFlop)
                 {
@@ -226,19 +226,13 @@ namespace AutoTable
         {
             return Color.FromArgb(GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100));
         }
-        public void ChangeBackGroundColor()
-        {
-            this.BackColor = GetRandomColor();
-        }
-
-
         private void GreenTriggerNumeric_ValueChanged(object sender, EventArgs e)
         {
             Color bestcolor = Color.FromArgb(0, (int)GreenTriggerNumeric.Value, 0);
             GreenTriggerNumeric.BackColor = bestcolor;
         }
 
-        Image dancegif1;
+        Image dancegif1, fireBackgroundGif;
         private void Form1_Load(object sender, EventArgs e)
         {
             //ADD BLACKLISTED COLROS
@@ -252,14 +246,14 @@ namespace AutoTable
             BlackListerColors.Add(Color.FromArgb(96, 145, 30));
 
 
-            //Picture adding stuff
-            var CurrentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-            Console.WriteLine(CurrentDirectory);
-
             dancegif1 = Properties.Resources.AquaDanceGif;
             DancePictureBox.Image = dancegif1;
             DancePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            fireBackgroundGif = Properties.Resources.BackgroundFire;
+            BackgroundPicturebox.Image = fireBackgroundGif;
+            BackgroundPicturebox.SizeMode = PictureBoxSizeMode.StretchImage;
+            BackgroundPicturebox.Visible = false;
 
         }
 

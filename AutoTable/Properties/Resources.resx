@@ -121,4 +121,7 @@
   <data name="AquaDanceGif" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\AquaDanceGif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BackgroundFire" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\BackgroundFire.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

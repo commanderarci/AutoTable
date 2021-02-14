@@ -46,12 +46,14 @@ namespace AutoTable
             this.ClickInformartionLabel = new System.Windows.Forms.Label();
             this.TriggerColorLabel = new System.Windows.Forms.Label();
             this.DancePictureBox = new System.Windows.Forms.PictureBox();
+            this.BackgroundPicturebox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridTopNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundPicturebox)).BeginInit();
             this.SuspendLayout();
             // 
             // McPictureBox
@@ -206,6 +208,14 @@ namespace AutoTable
             this.DancePictureBox.TabStop = false;
             this.DancePictureBox.Visible = false;
             // 
+            // BackgroundPicturebox
+            // 
+            this.BackgroundPicturebox.Location = new System.Drawing.Point(-158, -58);
+            this.BackgroundPicturebox.Name = "BackgroundPicturebox";
+            this.BackgroundPicturebox.Size = new System.Drawing.Size(1450, 626);
+            this.BackgroundPicturebox.TabIndex = 17;
+            this.BackgroundPicturebox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +236,7 @@ namespace AutoTable
             this.Controls.Add(this.counter_label);
             this.Controls.Add(this.Start_button);
             this.Controls.Add(this.McPictureBox);
+            this.Controls.Add(this.BackgroundPicturebox);
             this.Name = "Form1";
             this.Opacity = 0.75D;
             this.Text = "Form1";
@@ -236,6 +247,7 @@ namespace AutoTable
             ((System.ComponentModel.ISupportInitialize)(this.GridTopNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackgroundPicturebox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +271,7 @@ namespace AutoTable
         private System.Windows.Forms.Label ClickInformartionLabel;
         private System.Windows.Forms.Label TriggerColorLabel;
         private System.Windows.Forms.PictureBox DancePictureBox;
+        private System.Windows.Forms.PictureBox BackgroundPicturebox;
     }
 }
 

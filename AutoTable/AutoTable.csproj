@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AquaDanceGif.gif" />
+    <None Include="BackgroundFire.gif" />
     <Content Include="DanceGif1.bmp" />
     <None Include="Resources\AquaDance.bmp" />
     <None Include="Resources\AquaDanceGif.bmp" />
