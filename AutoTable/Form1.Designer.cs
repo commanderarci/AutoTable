@@ -238,7 +238,7 @@ namespace AutoTable
             this.Controls.Add(this.McPictureBox);
             this.Controls.Add(this.BackgroundPicturebox);
             this.Name = "Form1";
-            this.Opacity = 0.75D;
+            this.Opacity = 0.9D;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).EndInit();
