@@ -45,11 +45,13 @@ namespace AutoTable
             this.ResetClicksButton = new System.Windows.Forms.Button();
             this.ClickInformartionLabel = new System.Windows.Forms.Label();
             this.TriggerColorLabel = new System.Windows.Forms.Label();
+            this.DancePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridTopNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // McPictureBox
@@ -180,7 +182,7 @@ namespace AutoTable
             // ClickInformartionLabel
             // 
             this.ClickInformartionLabel.AutoSize = true;
-            this.ClickInformartionLabel.Location = new System.Drawing.Point(1023, 57);
+            this.ClickInformartionLabel.Location = new System.Drawing.Point(1020, 114);
             this.ClickInformartionLabel.Name = "ClickInformartionLabel";
             this.ClickInformartionLabel.Size = new System.Drawing.Size(64, 13);
             this.ClickInformartionLabel.TabIndex = 14;
@@ -195,11 +197,21 @@ namespace AutoTable
             this.TriggerColorLabel.TabIndex = 15;
             this.TriggerColorLabel.Text = "Green Trigger Level";
             // 
+            // DancePictureBox
+            // 
+            this.DancePictureBox.Location = new System.Drawing.Point(1023, 4);
+            this.DancePictureBox.Name = "DancePictureBox";
+            this.DancePictureBox.Size = new System.Drawing.Size(100, 107);
+            this.DancePictureBox.TabIndex = 16;
+            this.DancePictureBox.TabStop = false;
+            this.DancePictureBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.DancePictureBox);
             this.Controls.Add(this.TriggerColorLabel);
             this.Controls.Add(this.ClickInformartionLabel);
             this.Controls.Add(this.ResetClicksButton);
@@ -223,6 +235,7 @@ namespace AutoTable
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridTopNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,6 +258,7 @@ namespace AutoTable
         private System.Windows.Forms.Button ResetClicksButton;
         private System.Windows.Forms.Label ClickInformartionLabel;
         private System.Windows.Forms.Label TriggerColorLabel;
+        private System.Windows.Forms.PictureBox DancePictureBox;
     }
 }
 

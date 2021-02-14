@@ -81,5 +81,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="AquaDanceGif.gif" />
+    <Content Include="DanceGif1.bmp" />
+    <None Include="Resources\AquaDance.bmp" />
+    <None Include="Resources\AquaDanceGif.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
