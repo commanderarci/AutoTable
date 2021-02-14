@@ -89,69 +89,146 @@ namespace AutoTable
                 DancePictureBox.Enabled = false;
             }
         }
+        public class ClickCandidate
+        {
+            public Color _color;
+            public int posX, posY;
+            public ClickCandidate(int iX, int iY, Color icolor)
+            {
+                posX = iX;
+                posY = iY;
+                _color = icolor;
+            }
+
+        }
 
 
-        bool clickFlipFlop = true;
+        bool clickToggle = false;
+        ClickCandidate oldBestCanditate;
         public void MainEventChain()
         {
+            //Get bitmapmap 
             Bitmap workbitmap = GetChestScreenshot();
+            //Settings
             int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
             int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
-            Color bestcolor = Color.FromArgb(0, 0, 0);
-            int bestX = 0, bestY = 0;
 
+            //Get all canditates
+            List<ClickCandidate> candidateslist = new List<ClickCandidate>();
             for (int x = 0; x < gridLeft; x++)
             {
                 for (int y = 0; y < gridTop; y++)
                 {
-                    if (x * offsetLeft < workbitmap.Width && y * offsetTop < workbitmap.Height)
+                    if (x * offsetTop > 0 && x * offsetTop < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
                     {
-                        Color canditateColor = workbitmap.GetPixel(x * offsetLeft, y * offsetTop);
-                        if (!BlackListerColors.Contains(canditateColor))
+                        //For each position
+                        ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
+                        if (!BlackListerColors.Contains(newCandidate._color))
                         {
-                            float greenValue = canditateColor.G - canditateColor.R - canditateColor.B;
-                            if (greenValue > bestcolor.G)
-                            {
-                                bestcolor = canditateColor;
-                                bestX = x * offsetLeft;
-                                bestY = y * offsetTop;
-                            }
-                            //Color canditates
-                            if (greenValue > 0)
-                            {
-                                Color tempcolor = Color.FromArgb(0, 255, 0);
-                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor);
-                            }
-                            else
-                            {
-                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
-                            }
+                            candidateslist.Add(newCandidate);
                         }
+
+
+                        //Color that specific pixel :D for preview picture box
+                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
                     }
                 }
             }
 
-            if (bestcolor.G > 100)
+
+
+            //Now compare all the canditates and take the best one
+            ClickCandidate bestCandidate = new ClickCandidate(0, 0, Color.FromArgb(0, 0, 0));
+            foreach (ClickCandidate candidate in candidateslist)
             {
-                // Click on the best candidate
-                if (clickFlipFlop)
+                float greenValue = candidate._color.G - candidate._color.R - candidate._color.B;
+
+                if (greenValue > bestCandidate._color.G)
                 {
-                    //Click on position
-                    DoMouseClick(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
-                    CounterClicker();
-                    clickFlipFlop = !clickFlipFlop;
-                }
-                else
-                {
-                    //Move to position
-                    DoMouseMove(this.Left + 8 + 250 + bestX + 5, this.Top + 32 + 50 + bestY + 15);
-                    clickFlipFlop = !clickFlipFlop;
+                    bestCandidate = candidate;
                 }
             }
 
 
+            //Color the best one
+            Color tempcolor = Color.FromArgb(0, 255, 0);
+            workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
+
+
+            //Makes tracking lines
+            if (oldBestCanditate != null)
+            {
+                workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, bestCandidate.posX, bestCandidate.posY, Color.Green);
+            }
+
+
+
+            //If it passed the treshhold value its good
+            if (bestCandidate._color.G > GreenTriggerNumeric.Value)
+            {
+                if (clickToggle)
+                {
+                    //Click on position
+                    DoMouseClick(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
+                    CounterClicker();
+                    oldBestCanditate = bestCandidate;
+                    clickToggle = !clickToggle;
+                }
+                else
+                {
+                    //Move to position
+                    DoMouseMove(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
+                    clickToggle = !clickToggle;
+                }
+            }
+
+
+
+            //smol preview
             ClickPicturebox.Image = workbitmap;
+
+
+
+
         }
+
+        public Bitmap DrawLine(Bitmap inputBMap, int X1, int Y1, int X2, int Y2, Color icolor, int Thickness = 3)
+        {
+            Pen blackPen = new Pen(icolor, Thickness);
+            using (var graphics = Graphics.FromImage(inputBMap))
+            {
+                graphics.DrawLine(blackPen, X1, Y1, X2, Y2);
+            }
+
+            return inputBMap;
+        }
+
+
+        public Color GetAverageColor(int iX, int iY, Bitmap iMap, int sizeAvg = 2)
+        {
+            /*            //Still TO DO
+                        int avgBlue = 0, avgGreen = 0, avgRed = 0, avgCounter = 0;
+                        for (int x = 0; x < sizeAvg; x++)
+                        {
+                            for (int y = 0; y < sizeAvg; y++)
+                            {
+                                if (x > 0 && x < iMap.Width && y > 0 && y < iMap.Height)
+                                {
+                                    avgBlue += iMap.GetPixel(x, y).B;
+                                    avgGreen += iMap.GetPixel(x, y).G;
+                                    avgRed += iMap.GetPixel(x, y).R;
+                                    avgCounter++;
+                                }
+                            }
+                        }
+                        avgBlue = avgBlue / avgCounter;
+                        avgGreen = avgGreen / avgCounter;
+                        avgRed = avgRed / avgCounter;*/
+
+
+            return iMap.GetPixel(iX, iY);
+        }
+
         public void Preview()
         {
             Bitmap workbitmap = GetChestScreenshot();
@@ -171,19 +248,32 @@ namespace AutoTable
             ClickPicturebox.Image = workbitmap;
         }
 
-        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iC)
+        public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iColor)
         {
-            for (int x = -2; x < 2; x++)
+            Pen drawingpen = new Pen(iColor, 1);
+            using (var graphics = Graphics.FromImage(inbitmap))
             {
-                for (int y = -2; y < 2; y++)
-                {
-                    if ((ix + x) < inbitmap.Width && (ix + x) > 0 && (iy + y) < inbitmap.Height && (iy + y) > 0)
-                    {
-                        inbitmap.SetPixel(ix + x, iy + y, iC);
-                    }
-                }
+                graphics.DrawEllipse(drawingpen, ix - 2, iy - 2, 4, 4);
             }
 
+
+
+
+
+
+
+
+            /*            for (int x = -2; x < 2; x++)
+                        {
+                            for (int y = -2; y < 2; y++)
+                            {
+                                if ((ix + x) < inbitmap.Width && (ix + x) > 0 && (iy + y) < inbitmap.Height && (iy + y) > 0)
+                                {
+                                    inbitmap.SetPixel(ix + x, iy + y, iC);
+                                }
+                            }
+                        }
+            */
             return inbitmap;
         }
         public Bitmap GetChestScreenshot()
