@@ -167,9 +167,9 @@ namespace AutoTable
             foreach (ClickCandidate candidate in candidateslist)
             {
                 float greenValue = candidate._color.G - candidate._color.R - candidate._color.B;
-
                 if (greenValue > bestCandidate._color.G)
                 {
+                    workbitmap = DrawCircle(candidate.posX, candidate.posY, workbitmap, Color.GreenYellow);
                     bestCandidate = candidate;
                 }
             }
@@ -237,26 +237,39 @@ namespace AutoTable
 
             //Get all canditates
             List<ClickCandidate> candidateslist = new List<ClickCandidate>();
-            for (int x = 0; x < gridLeft; x++)
+
+
+            //WIP trying to make it keep searching untill its found
+            while (candidateslist.Count == 0 && offsetLeft > 0 && offsetTop > 0)
             {
-                for (int y = 0; y < gridTop; y++)
+                for (int x = 0; x < gridLeft; x++)
                 {
-                    if (x * offsetTop > 0 && x * offsetTop < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
+                    for (int y = 0; y < gridTop; y++)
                     {
-                        //For each position
-                        ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
-                        if (!BlackListerColors.Contains(newCandidate._color))
+                        if (x * offsetTop > 0 && x * offsetTop < workbitmap.Width && y * offsetLeft > 0 && y * offsetLeft < workbitmap.Height)
                         {
-                            candidateslist.Add(newCandidate);
+                            //For each position
+                            ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
+                            if (!BlackListerColors.Contains(newCandidate._color))
+                            {
+                                candidateslist.Add(newCandidate);
+                            }
+
+
+                            //Color that specific pixel :D for preview picture box
+                            workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
                         }
-
-
-                        //Color that specific pixel :D for preview picture box
-                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
                     }
                 }
-            }
 
+
+
+
+
+
+                offsetTop -= 1;
+                offsetLeft -= 1;
+            }
 
 
             //Now compare all the canditates and take the best one
