@@ -44,12 +44,14 @@ namespace AutoTable
                 Start_button.Text = "STOP";
                 timer1.Enabled = true;
                 PreviewButton.Enabled = false;
+                Start_button.BackColor = Color.Red;
             }
             else
             {
                 Start_button.Text = "START";
                 timer1.Enabled = false;
                 PreviewButton.Enabled = true;
+                Start_button.BackColor = Color.Lime;
             }
         }
         private void PreviewButton_Click(object sender, EventArgs e)

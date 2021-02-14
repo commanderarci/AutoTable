@@ -44,6 +44,7 @@ namespace AutoTable
             this.GreenTriggerNumeric = new System.Windows.Forms.NumericUpDown();
             this.ResetClicksButton = new System.Windows.Forms.Button();
             this.ClickInformartionLabel = new System.Windows.Forms.Label();
+            this.TriggerColorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
@@ -62,12 +63,13 @@ namespace AutoTable
             // 
             // Start_button
             // 
+            this.Start_button.BackColor = System.Drawing.Color.Lime;
             this.Start_button.Location = new System.Drawing.Point(888, 12);
             this.Start_button.Name = "Start_button";
             this.Start_button.Size = new System.Drawing.Size(129, 58);
             this.Start_button.TabIndex = 2;
             this.Start_button.Text = "START";
-            this.Start_button.UseVisualStyleBackColor = true;
+            this.Start_button.UseVisualStyleBackColor = false;
             this.Start_button.Click += new System.EventHandler(this.Start_button_Click);
             // 
             // counter_label
@@ -154,9 +156,9 @@ namespace AutoTable
             // 
             // GreenTriggerNumeric
             // 
-            this.GreenTriggerNumeric.Location = new System.Drawing.Point(1107, 146);
+            this.GreenTriggerNumeric.Location = new System.Drawing.Point(1074, 172);
             this.GreenTriggerNumeric.Name = "GreenTriggerNumeric";
-            this.GreenTriggerNumeric.Size = new System.Drawing.Size(105, 20);
+            this.GreenTriggerNumeric.Size = new System.Drawing.Size(42, 20);
             this.GreenTriggerNumeric.TabIndex = 12;
             this.GreenTriggerNumeric.Value = new decimal(new int[] {
             100,
@@ -184,11 +186,21 @@ namespace AutoTable
             this.ClickInformartionLabel.TabIndex = 14;
             this.ClickInformartionLabel.Text = "Extra clicks:";
             // 
+            // TriggerColorLabel
+            // 
+            this.TriggerColorLabel.AutoSize = true;
+            this.TriggerColorLabel.Location = new System.Drawing.Point(1071, 146);
+            this.TriggerColorLabel.Name = "TriggerColorLabel";
+            this.TriggerColorLabel.Size = new System.Drawing.Size(101, 13);
+            this.TriggerColorLabel.TabIndex = 15;
+            this.TriggerColorLabel.Text = "Green Trigger Level";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.TriggerColorLabel);
             this.Controls.Add(this.ClickInformartionLabel);
             this.Controls.Add(this.ResetClicksButton);
             this.Controls.Add(this.GreenTriggerNumeric);
@@ -232,6 +244,7 @@ namespace AutoTable
         private System.Windows.Forms.NumericUpDown GreenTriggerNumeric;
         private System.Windows.Forms.Button ResetClicksButton;
         private System.Windows.Forms.Label ClickInformartionLabel;
+        private System.Windows.Forms.Label TriggerColorLabel;
     }
 }
 
