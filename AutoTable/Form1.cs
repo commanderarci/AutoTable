@@ -105,6 +105,7 @@ namespace AutoTable
 
         bool clickToggle = false;
         ClickCandidate oldBestCanditate;
+        List<ClickCandidate> oldCanditatesList = new List<ClickCandidate>();
         public void MainEventChain()
         {
             //Get bitmapmap 
@@ -156,9 +157,13 @@ namespace AutoTable
 
 
             //Makes tracking lines
-            if (oldBestCanditate != null)
+            foreach (ClickCandidate item in oldCanditatesList)
             {
-                workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, bestCandidate.posX, bestCandidate.posY, Color.Green);
+                if (oldBestCanditate != null)
+                {
+                    workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, item.posX, item.posY, Color.Green);
+                }
+                oldBestCanditate = item;
             }
 
 
@@ -171,8 +176,10 @@ namespace AutoTable
                     //Click on position
                     DoMouseClick(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
                     CounterClicker();
-                    oldBestCanditate = bestCandidate;
                     clickToggle = !clickToggle;
+
+                    //Add to history
+                    oldCanditatesList.Add(bestCandidate);
                 }
                 else
                 {
@@ -180,6 +187,10 @@ namespace AutoTable
                     DoMouseMove(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
                     clickToggle = !clickToggle;
                 }
+            }
+            else
+            {
+                oldCanditatesList = new List<ClickCandidate>();
             }
 
 
