@@ -117,6 +117,8 @@ namespace AutoTable
 
             if (bestcolor.G > 100)
             {
+                //Change random color of background
+                ChangeBackGroundColor();
                 // Click on the best candidate
                 if (clickFlipFlop)
                 {
@@ -200,9 +202,8 @@ namespace AutoTable
         {
             if (running)
             {
-                Random rnd = new Random();
                 MainEventChain();
-                timer1.Interval = 300 + rnd.Next(-200, 200);
+                timer1.Interval = 300 + GetIntRandomNumber(-200, 200);
                 label1.Text = "TICKRATE" + timer1.Interval;
 
             }
@@ -211,6 +212,20 @@ namespace AutoTable
                 Preview();
             }
         }
+        public int GetIntRandomNumber(int min, int max)
+        {
+            Random rnd = new Random();
+            return rnd.Next(-min, max);
+        }
+        public Color GetRandomColor()
+        {
+            return Color.FromArgb(GetIntRandomNumber(50,100), GetIntRandomNumber(50, 100), GetIntRandomNumber(50, 100));
+        }
+        public void ChangeBackGroundColor()
+        {
+            this.BackColor = GetRandomColor();
+        }
+
 
         private void GreenTriggerNumeric_ValueChanged(object sender, EventArgs e)
         {
