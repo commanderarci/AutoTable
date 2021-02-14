@@ -210,9 +210,9 @@ namespace AutoTable
             // 
             // BackgroundPicturebox
             // 
-            this.BackgroundPicturebox.Location = new System.Drawing.Point(-158, -58);
+            this.BackgroundPicturebox.Location = new System.Drawing.Point(0, -5);
             this.BackgroundPicturebox.Name = "BackgroundPicturebox";
-            this.BackgroundPicturebox.Size = new System.Drawing.Size(1450, 626);
+            this.BackgroundPicturebox.Size = new System.Drawing.Size(1248, 559);
             this.BackgroundPicturebox.TabIndex = 17;
             this.BackgroundPicturebox.TabStop = false;
             // 
