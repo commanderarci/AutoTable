@@ -47,6 +47,7 @@ namespace AutoTable
             this.TriggerColorLabel = new System.Windows.Forms.Label();
             this.DancePictureBox = new System.Windows.Forms.PictureBox();
             this.BackgroundPicturebox = new System.Windows.Forms.PictureBox();
+            this.ExperimentalButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
@@ -216,11 +217,22 @@ namespace AutoTable
             this.BackgroundPicturebox.TabIndex = 17;
             this.BackgroundPicturebox.TabStop = false;
             // 
+            // ExperimentalButton
+            // 
+            this.ExperimentalButton.Location = new System.Drawing.Point(888, 104);
+            this.ExperimentalButton.Name = "ExperimentalButton";
+            this.ExperimentalButton.Size = new System.Drawing.Size(129, 23);
+            this.ExperimentalButton.TabIndex = 18;
+            this.ExperimentalButton.Text = "Experimental";
+            this.ExperimentalButton.UseVisualStyleBackColor = true;
+            this.ExperimentalButton.Click += new System.EventHandler(this.ExperimentalButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.ExperimentalButton);
             this.Controls.Add(this.DancePictureBox);
             this.Controls.Add(this.TriggerColorLabel);
             this.Controls.Add(this.ClickInformartionLabel);
@@ -272,6 +284,7 @@ namespace AutoTable
         private System.Windows.Forms.Label TriggerColorLabel;
         private System.Windows.Forms.PictureBox DancePictureBox;
         private System.Windows.Forms.PictureBox BackgroundPicturebox;
+        private System.Windows.Forms.Button ExperimentalButton;
     }
 }
 

@@ -27,6 +27,7 @@ namespace AutoTable
 
         bool running = false;
         bool preview = false;
+        bool experimental = false;
         int counter = 0;
         int clicks = 0;
 
@@ -45,6 +46,7 @@ namespace AutoTable
                 Start_button.Text = "STOP";
                 timer1.Enabled = true;
                 PreviewButton.Enabled = false;
+                ExperimentalButton.Enabled = false;
                 Start_button.BackColor = Color.Red;
 
                 DancePictureBox.Image = minecraftDanceGif;
@@ -57,6 +59,7 @@ namespace AutoTable
                 Start_button.Text = "START";
                 timer1.Enabled = false;
                 PreviewButton.Enabled = true;
+                ExperimentalButton.Enabled = true;
                 Start_button.BackColor = Color.Lime;
 
                 DancePictureBox.Visible = false;
@@ -72,6 +75,7 @@ namespace AutoTable
                 PreviewButton.Text = "Preview ON";
                 timer1.Enabled = true;
                 Start_button.Enabled = false;
+                ExperimentalButton.Enabled = false;
                 timer1.Interval = 200;
 
                 DancePictureBox.Image = aquaDanceGif;
@@ -83,10 +87,30 @@ namespace AutoTable
                 PreviewButton.Text = "Preview OFF";
                 timer1.Enabled = false;
                 Start_button.Enabled = true;
+                ExperimentalButton.Enabled = true;
                 timer1.Interval = 1000;
 
                 DancePictureBox.Visible = false;
                 DancePictureBox.Enabled = false;
+            }
+        }
+        private void ExperimentalButton_Click(object sender, EventArgs e)
+        {
+            experimental = !experimental;
+            if (experimental)
+            {
+                ExperimentalButton.Text = "STOP";
+                timer1.Enabled = true;
+                PreviewButton.Enabled = false;
+                Start_button.Enabled = false;
+
+            }
+            else
+            {
+                ExperimentalButton.Text = "Experimental";
+                timer1.Enabled = false;
+                PreviewButton.Enabled = true;
+                Start_button.Enabled = true;
             }
         }
         public class ClickCandidate
@@ -203,6 +227,101 @@ namespace AutoTable
 
         }
 
+        public void ExperimentalRoutine()
+        {
+            //Get bitmapmap 
+            Bitmap workbitmap = GetChestScreenshot();
+            //Settings
+            int gridLeft = (int)GridLeftNumeric.Value*5, gridTop = (int)GridTopNumeric.Value*5;
+            int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
+
+            //Get all canditates
+            List<ClickCandidate> candidateslist = new List<ClickCandidate>();
+            for (int x = 0; x < gridLeft; x++)
+            {
+                for (int y = 0; y < gridTop; y++)
+                {
+                    if (x * offsetTop > 0 && x * offsetTop < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
+                    {
+                        //For each position
+                        ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
+                        if (!BlackListerColors.Contains(newCandidate._color))
+                        {
+                            candidateslist.Add(newCandidate);
+                        }
+
+
+                        //Color that specific pixel :D for preview picture box
+                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
+                    }
+                }
+            }
+
+
+
+            //Now compare all the canditates and take the best one
+            ClickCandidate bestCandidate = new ClickCandidate(0, 0, Color.FromArgb(0, 0, 0));
+            foreach (ClickCandidate candidate in candidateslist)
+            {
+                float greenValue = candidate._color.G - candidate._color.R - candidate._color.B;
+
+                if (greenValue > bestCandidate._color.G)
+                {
+                    bestCandidate = candidate;
+                }
+            }
+
+
+            //Color the best one
+            Color tempcolor = Color.FromArgb(0, 255, 0);
+            workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
+
+
+            //Makes tracking lines
+            foreach (ClickCandidate item in oldCanditatesList)
+            {
+                if (oldBestCanditate != null)
+                {
+                    workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, item.posX, item.posY, Color.Green);
+                }
+                oldBestCanditate = item;
+            }
+
+
+
+            //If it passed the treshhold value its good
+            if (bestCandidate._color.G > GreenTriggerNumeric.Value)
+            {
+                if (clickToggle)
+                {
+                    //Click on position
+                    DoMouseClick(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
+                    CounterClicker();
+                    clickToggle = !clickToggle;
+
+                    //Add to history
+                    oldCanditatesList.Add(bestCandidate);
+                }
+                else
+                {
+                    //Move to position
+                    DoMouseMove(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
+                    clickToggle = !clickToggle;
+                }
+            }
+            else
+            {
+                oldCanditatesList = new List<ClickCandidate>();
+            }
+
+
+
+            //smol preview
+            ClickPicturebox.Image = workbitmap;
+
+        }
+
+
         public Bitmap DrawLine(Bitmap inputBMap, int X1, int Y1, int X2, int Y2, Color icolor, int Thickness = 3)
         {
             if (X1 != 0 && X2 != 0 && Y1 != 0 && Y2 != 0)
@@ -317,17 +436,25 @@ namespace AutoTable
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (running)
+            if (experimental)
+            {
+                ExperimentalRoutine();
+                timer1.Interval = 300 + GetIntRandomNumber(-200, 200);
+                label1.Text = "TICKRATE" + timer1.Interval;
+            }
+            else if (running)
             {
                 MainEventChain();
                 timer1.Interval = 300 + GetIntRandomNumber(-200, 200);
                 label1.Text = "TICKRATE" + timer1.Interval;
 
             }
-            if (preview)
+            else if (preview)
             {
                 Preview();
+                label1.Text = "TICKRATE" + timer1.Interval;
             }
+
         }
         public int GetIntRandomNumber(int min, int max)
         {
@@ -369,7 +496,6 @@ namespace AutoTable
 
             minecraftDanceGif = Properties.Resources.MinecraftDanceGif;
         }
-
         private void ResetClicksButton_Click(object sender, EventArgs e)
         {
             counter_label.Text = "Clicks: ";
