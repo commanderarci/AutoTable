@@ -101,7 +101,7 @@ namespace AutoTable
                             if (greenValue > 0)
                             {
                                 Color tempcolor = Color.FromArgb(0, (int)greenValue, 0);
-                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor,true);
+                                workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, tempcolor);
                             }
                             else
                             {
