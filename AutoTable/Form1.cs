@@ -47,6 +47,7 @@ namespace AutoTable
                 PreviewButton.Enabled = false;
                 Start_button.BackColor = Color.Red;
 
+                DancePictureBox.Image = minecraftDanceGif;
                 DancePictureBox.Visible = true;
                 DancePictureBox.Enabled = true;
                 BackgroundPicturebox.Visible = true;
@@ -72,6 +73,10 @@ namespace AutoTable
                 timer1.Enabled = true;
                 Start_button.Enabled = false;
                 timer1.Interval = 200;
+
+                DancePictureBox.Image = aquaDanceGif;
+                DancePictureBox.Visible = true;
+                DancePictureBox.Enabled = true;
             }
             else
             {
@@ -79,6 +84,9 @@ namespace AutoTable
                 timer1.Enabled = false;
                 Start_button.Enabled = true;
                 timer1.Interval = 1000;
+
+                DancePictureBox.Visible = false;
+                DancePictureBox.Enabled = false;
             }
         }
 
@@ -232,7 +240,7 @@ namespace AutoTable
             GreenTriggerNumeric.BackColor = bestcolor;
         }
 
-        Image dancegif1, fireBackgroundGif;
+        Image aquaDanceGif, fireBackgroundGif, minecraftDanceGif;
         private void Form1_Load(object sender, EventArgs e)
         {
             //ADD BLACKLISTED COLROS
@@ -246,8 +254,8 @@ namespace AutoTable
             BlackListerColors.Add(Color.FromArgb(96, 145, 30));
 
 
-            dancegif1 = Properties.Resources.AquaDanceGif;
-            DancePictureBox.Image = dancegif1;
+            aquaDanceGif = Properties.Resources.AquaDanceGif;
+
             DancePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
             fireBackgroundGif = Properties.Resources.BackgroundFire;
@@ -255,6 +263,7 @@ namespace AutoTable
             BackgroundPicturebox.SizeMode = PictureBoxSizeMode.StretchImage;
             BackgroundPicturebox.Visible = false;
 
+            minecraftDanceGif = Properties.Resources.MinecraftDanceGif;
         }
 
         private void ResetClicksButton_Click(object sender, EventArgs e)
