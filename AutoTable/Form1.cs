@@ -156,7 +156,7 @@ namespace AutoTable
 
 
             //Makes tracking lines
-            if (oldBestCanditate != null && oldBestCanditate.posX != 0 && oldBestCanditate.posY != 0)
+            if (oldBestCanditate != null)
             {
                 workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, bestCandidate.posX, bestCandidate.posY, Color.Green);
             }
@@ -194,12 +194,15 @@ namespace AutoTable
 
         public Bitmap DrawLine(Bitmap inputBMap, int X1, int Y1, int X2, int Y2, Color icolor, int Thickness = 3)
         {
-            Pen blackPen = new Pen(icolor, Thickness);
-            using (var graphics = Graphics.FromImage(inputBMap))
+            if (X1 != 0 && X2 != 0 && Y1 != 0 && Y2 != 0)
             {
-                graphics.DrawLine(blackPen, X1, Y1, X2, Y2);
-            }
+                Pen blackPen = new Pen(icolor, Thickness);
+                using (var graphics = Graphics.FromImage(inputBMap))
+                {
+                    graphics.DrawLine(blackPen, X1, Y1, X2, Y2);
+                }
 
+            }
             return inputBMap;
         }
 
