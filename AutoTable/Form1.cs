@@ -494,7 +494,7 @@ namespace AutoTable
         Image aquaDanceGif, fireBackgroundGif, minecraftDanceGif;
         private void Form1_Load(object sender, EventArgs e)
         {
-            //ADD BLACKLISTED COLROS
+            //ADD BLACKLISTED COLORS
             BlackListerColors.Add(Color.FromArgb(131, 212, 28));
             BlackListerColors.Add(Color.FromArgb(118, 198, 16));
             BlackListerColors.Add(Color.FromArgb(101, 172, 9));
