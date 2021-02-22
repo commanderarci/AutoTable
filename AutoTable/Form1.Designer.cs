@@ -48,6 +48,7 @@ namespace AutoTable
             this.DancePictureBox = new System.Windows.Forms.PictureBox();
             this.BackgroundPicturebox = new System.Windows.Forms.PictureBox();
             this.ExperimentalButton = new System.Windows.Forms.Button();
+            this.CandidateViewToggle_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
@@ -104,6 +105,7 @@ namespace AutoTable
             this.ClickPicturebox.Location = new System.Drawing.Point(880, 263);
             this.ClickPicturebox.Name = "ClickPicturebox";
             this.ClickPicturebox.Size = new System.Drawing.Size(350, 270);
+            this.ClickPicturebox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ClickPicturebox.TabIndex = 5;
             this.ClickPicturebox.TabStop = false;
             // 
@@ -227,11 +229,22 @@ namespace AutoTable
             this.ExperimentalButton.UseVisualStyleBackColor = true;
             this.ExperimentalButton.Click += new System.EventHandler(this.ExperimentalButton_Click);
             // 
+            // CandidateViewToggle_Button
+            // 
+            this.CandidateViewToggle_Button.Location = new System.Drawing.Point(880, 227);
+            this.CandidateViewToggle_Button.Name = "CandidateViewToggle_Button";
+            this.CandidateViewToggle_Button.Size = new System.Drawing.Size(350, 30);
+            this.CandidateViewToggle_Button.TabIndex = 19;
+            this.CandidateViewToggle_Button.Text = "Canditate View Mode";
+            this.CandidateViewToggle_Button.UseVisualStyleBackColor = true;
+            this.CandidateViewToggle_Button.Click += new System.EventHandler(this.CandidateViewToggle_Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.CandidateViewToggle_Button);
             this.Controls.Add(this.ExperimentalButton);
             this.Controls.Add(this.DancePictureBox);
             this.Controls.Add(this.TriggerColorLabel);
@@ -285,6 +298,7 @@ namespace AutoTable
         private System.Windows.Forms.PictureBox DancePictureBox;
         private System.Windows.Forms.PictureBox BackgroundPicturebox;
         private System.Windows.Forms.Button ExperimentalButton;
+        private System.Windows.Forms.Button CandidateViewToggle_Button;
     }
 }
 

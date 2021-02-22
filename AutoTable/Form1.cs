@@ -218,11 +218,24 @@ namespace AutoTable
             }
 
 
+            if (viewCandidates)
+            {
+                Bitmap candidateViewBitMap = new Bitmap((int)GridLeftNumeric.Value, (int)GridTopNumeric.Value, PixelFormat.Format32bppArgb);
 
-            //smol preview
-            ClickPicturebox.Image = workbitmap;
+                foreach (ClickCandidate candidate in candidateslist)
+                {
+                    candidateViewBitMap.SetPixel(candidate.posX / offsetLeft, candidate.posY / offsetTop, candidate._color);
+                }
 
+                ClickPicturebox.Image = candidateViewBitMap;
 
+            }
+            else
+            {
+
+                //smol preview
+                ClickPicturebox.Image = workbitmap;
+            }
 
 
         }
@@ -329,9 +342,6 @@ namespace AutoTable
 
 
 
-            //smol preview
-            ClickPicturebox.Image = workbitmap;
-
         }
 
 
@@ -429,9 +439,6 @@ namespace AutoTable
             Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
             Graphics captureGraphics = Graphics.FromImage(captureBitmap);
             captureGraphics.CopyFromScreen(this.Left + McPictureBox.Left + 8 + offsetLeft, this.Top + McPictureBox.Top + 32 + offsetTop, 0, 0, captureRectangle.Size);
-
-
-
             return captureBitmap;
         }
         public void DoMouseMove(int iX, int iY)
@@ -509,6 +516,24 @@ namespace AutoTable
 
             minecraftDanceGif = Properties.Resources.MinecraftDanceGif;
         }
+
+
+        private bool viewCandidates;
+        private void CandidateViewToggle_Button_Click(object sender, EventArgs e)
+        {
+            viewCandidates = !viewCandidates;
+            if (viewCandidates)
+            {
+                CandidateViewToggle_Button.BackColor = Color.DarkGreen;
+            }
+            else
+            {
+                CandidateViewToggle_Button.BackColor = Color.White;
+            }
+
+
+        }
+
         private void ResetClicksButton_Click(object sender, EventArgs e)
         {
             counter_label.Text = "Clicks: ";
