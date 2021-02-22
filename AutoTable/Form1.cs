@@ -175,23 +175,6 @@ namespace AutoTable
             }
 
 
-            //Color the best one
-            Color tempcolor = Color.FromArgb(0, 255, 0);
-            workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
-
-
-            //Makes tracking lines
-            foreach (ClickCandidate item in oldCanditatesList)
-            {
-                if (oldBestCanditate != null)
-                {
-                    workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, item.posX, item.posY, Color.Green);
-                }
-                oldBestCanditate = item;
-            }
-
-
-
             //If it passed the treshhold value its good
             if (bestCandidate._color.G > GreenTriggerNumeric.Value)
             {
@@ -232,6 +215,30 @@ namespace AutoTable
             }
             else
             {
+
+
+
+                //Color the best one
+                Color tempcolor = Color.FromArgb(0, 255, 0);
+                workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
+
+
+                //Makes tracking lines
+                foreach (ClickCandidate item in oldCanditatesList)
+                {
+                    if (oldBestCanditate != null)
+                    {
+                        workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, item.posX, item.posY, Color.Green);
+                    }
+                    oldBestCanditate = item;
+                }
+
+
+
+
+
+
+
 
                 //smol preview
                 ClickPicturebox.Image = workbitmap;
