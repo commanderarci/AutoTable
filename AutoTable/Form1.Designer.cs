@@ -49,6 +49,9 @@ namespace AutoTable
             this.BackgroundPicturebox = new System.Windows.Forms.PictureBox();
             this.ExperimentalButton = new System.Windows.Forms.Button();
             this.CandidateViewToggle_Button = new System.Windows.Forms.Button();
+            this.CandidatesLabel = new System.Windows.Forms.Label();
+            this.sizeAvgNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.McPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClickPicturebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridLeftNumeric)).BeginInit();
@@ -56,6 +59,7 @@ namespace AutoTable
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundPicturebox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeAvgNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // McPictureBox
@@ -113,7 +117,7 @@ namespace AutoTable
             // 
             this.GridLeftNumeric.Location = new System.Drawing.Point(941, 144);
             this.GridLeftNumeric.Name = "GridLeftNumeric";
-            this.GridLeftNumeric.Size = new System.Drawing.Size(120, 20);
+            this.GridLeftNumeric.Size = new System.Drawing.Size(76, 20);
             this.GridLeftNumeric.TabIndex = 7;
             this.GridLeftNumeric.Value = new decimal(new int[] {
             10,
@@ -143,7 +147,7 @@ namespace AutoTable
             // 
             this.GridTopNumeric.Location = new System.Drawing.Point(941, 170);
             this.GridTopNumeric.Name = "GridTopNumeric";
-            this.GridTopNumeric.Size = new System.Drawing.Size(120, 20);
+            this.GridTopNumeric.Size = new System.Drawing.Size(76, 20);
             this.GridTopNumeric.TabIndex = 9;
             this.GridTopNumeric.Value = new decimal(new int[] {
             11,
@@ -164,11 +168,16 @@ namespace AutoTable
             // GreenTriggerNumeric
             // 
             this.GreenTriggerNumeric.Location = new System.Drawing.Point(1074, 172);
+            this.GreenTriggerNumeric.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.GreenTriggerNumeric.Name = "GreenTriggerNumeric";
             this.GreenTriggerNumeric.Size = new System.Drawing.Size(42, 20);
             this.GreenTriggerNumeric.TabIndex = 12;
             this.GreenTriggerNumeric.Value = new decimal(new int[] {
-            100,
+            255,
             0,
             0,
             0});
@@ -239,11 +248,54 @@ namespace AutoTable
             this.CandidateViewToggle_Button.UseVisualStyleBackColor = true;
             this.CandidateViewToggle_Button.Click += new System.EventHandler(this.CandidateViewToggle_Button_Click);
             // 
+            // CandidatesLabel
+            // 
+            this.CandidatesLabel.AutoSize = true;
+            this.CandidatesLabel.Location = new System.Drawing.Point(938, 130);
+            this.CandidatesLabel.Name = "CandidatesLabel";
+            this.CandidatesLabel.Size = new System.Drawing.Size(66, 13);
+            this.CandidatesLabel.TabIndex = 20;
+            this.CandidatesLabel.Text = "Candidates: ";
+            // 
+            // sizeAvgNumeric
+            // 
+            this.sizeAvgNumeric.Location = new System.Drawing.Point(941, 196);
+            this.sizeAvgNumeric.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.sizeAvgNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.sizeAvgNumeric.Name = "sizeAvgNumeric";
+            this.sizeAvgNumeric.Size = new System.Drawing.Size(76, 20);
+            this.sizeAvgNumeric.TabIndex = 21;
+            this.sizeAvgNumeric.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(885, 198);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Size avg:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 545);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.sizeAvgNumeric);
+            this.Controls.Add(this.CandidatesLabel);
             this.Controls.Add(this.CandidateViewToggle_Button);
             this.Controls.Add(this.ExperimentalButton);
             this.Controls.Add(this.DancePictureBox);
@@ -273,6 +325,7 @@ namespace AutoTable
             ((System.ComponentModel.ISupportInitialize)(this.GreenTriggerNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DancePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundPicturebox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeAvgNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,6 +352,9 @@ namespace AutoTable
         private System.Windows.Forms.PictureBox BackgroundPicturebox;
         private System.Windows.Forms.Button ExperimentalButton;
         private System.Windows.Forms.Button CandidateViewToggle_Button;
+        private System.Windows.Forms.Label CandidatesLabel;
+        private System.Windows.Forms.NumericUpDown sizeAvgNumeric;
+        private System.Windows.Forms.Label label2;
     }
 }
 

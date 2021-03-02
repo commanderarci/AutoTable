@@ -144,7 +144,7 @@ namespace AutoTable
             {
                 for (int y = 0; y < gridTop; y++)
                 {
-                    if (x * offsetTop > 0 && x * offsetTop < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
+                    if (x * offsetLeft > 0 && x * offsetLeft < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
                     {
                         //For each position
                         ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
@@ -152,10 +152,6 @@ namespace AutoTable
                         {
                             candidateslist.Add(newCandidate);
                         }
-
-
-                        //Color that specific pixel :D for preview picture box
-                        workbitmap = DrawCircle(x * offsetLeft, y * offsetTop, workbitmap, Color.Gray);
                     }
                 }
             }
@@ -201,13 +197,22 @@ namespace AutoTable
             }
 
 
+
+            CandidatesLabel.Text = "Candidates: " + candidateslist.Count();
             if (viewCandidates)
             {
                 Bitmap candidateViewBitMap = new Bitmap((int)GridLeftNumeric.Value, (int)GridTopNumeric.Value, PixelFormat.Format32bppArgb);
 
                 foreach (ClickCandidate candidate in candidateslist)
                 {
-                    candidateViewBitMap.SetPixel(candidate.posX / offsetLeft, candidate.posY / offsetTop, candidate._color);
+                    int Gcolor = candidate._color.G - candidate._color.R - candidate._color.B;
+                    if (Gcolor < 0)
+                        Gcolor = 0;
+                    if (Gcolor > 255)
+                        Gcolor = 255;
+
+                    Color tempColor = candidate._color;
+                    candidateViewBitMap.SetPixel(candidate.posX / offsetLeft, candidate.posY / offsetTop, tempColor);
                 }
 
                 ClickPicturebox.Image = candidateViewBitMap;
@@ -215,14 +220,9 @@ namespace AutoTable
             }
             else
             {
-
-
-
                 //Color the best one
                 Color tempcolor = Color.FromArgb(0, 255, 0);
                 workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
-
-
                 //Makes tracking lines
                 foreach (ClickCandidate item in oldCanditatesList)
                 {
@@ -232,14 +232,6 @@ namespace AutoTable
                     }
                     oldBestCanditate = item;
                 }
-
-
-
-
-
-
-
-
                 //smol preview
                 ClickPicturebox.Image = workbitmap;
             }
@@ -252,7 +244,7 @@ namespace AutoTable
             //Get bitmapmap 
             Bitmap workbitmap = GetChestScreenshot();
             //Settings
-            int gridLeft = (int)GridLeftNumeric.Value*5, gridTop = (int)GridTopNumeric.Value*5;
+            int gridLeft = (int)GridLeftNumeric.Value * 5, gridTop = (int)GridTopNumeric.Value * 5;
             int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
 
             //Get all canditates
@@ -367,29 +359,37 @@ namespace AutoTable
         }
 
 
-        public Color GetAverageColor(int iX, int iY, Bitmap iMap, int sizeAvg = 2)
+        public Color GetAverageColor(int iX, int iY, Bitmap iMap)
         {
-            /*            //Still TO DO
-                        int avgBlue = 0, avgGreen = 0, avgRed = 0, avgCounter = 0;
-                        for (int x = 0; x < sizeAvg; x++)
-                        {
-                            for (int y = 0; y < sizeAvg; y++)
-                            {
-                                if (x > 0 && x < iMap.Width && y > 0 && y < iMap.Height)
-                                {
-                                    avgBlue += iMap.GetPixel(x, y).B;
-                                    avgGreen += iMap.GetPixel(x, y).G;
-                                    avgRed += iMap.GetPixel(x, y).R;
-                                    avgCounter++;
-                                }
-                            }
-                        }
-                        avgBlue = avgBlue / avgCounter;
-                        avgGreen = avgGreen / avgCounter;
-                        avgRed = avgRed / avgCounter;*/
+            int sizeAvg = (int)sizeAvgNumeric.Value;
+            int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
+            int offsetLeft = iMap.Width / gridLeft, offsetTop = iMap.Width / gridTop;
+            int R = 0, G = 0, B = 0;
+            int counter = 1;
 
 
-            return iMap.GetPixel(iX, iY);
+            for (int x = iX - sizeAvg; x < iX + sizeAvg; x++)
+            {
+                for (int y = iY - sizeAvg; y < iY + sizeAvg; y++)
+                {
+                    if (x > 0 && x < iMap.Width && y > 0 && y < iMap.Height)
+                    {
+                        R += iMap.GetPixel(x, y).R;
+                        G += iMap.GetPixel(x, y).G;
+                        B += iMap.GetPixel(x, y).B;
+                        counter++;
+                    }
+                }
+            }
+
+            R = R / counter;
+            G = G / counter;
+            B = B / counter;
+
+
+            Color avgColor = Color.FromArgb(R, G, B);
+
+            return avgColor;
         }
 
         public void Preview()
@@ -413,30 +413,12 @@ namespace AutoTable
 
         public Bitmap DrawCircle(int ix, int iy, Bitmap inbitmap, Color iColor)
         {
+            int size = (int)sizeAvgNumeric.Value;
             Pen drawingpen = new Pen(iColor, 1);
             using (var graphics = Graphics.FromImage(inbitmap))
             {
-                graphics.DrawEllipse(drawingpen, ix - 2, iy - 2, 4, 4);
+                graphics.DrawEllipse(drawingpen, ix - size/2, iy - size/2, size, size);
             }
-
-
-
-
-
-
-
-
-            /*            for (int x = -2; x < 2; x++)
-                        {
-                            for (int y = -2; y < 2; y++)
-                            {
-                                if ((ix + x) < inbitmap.Width && (ix + x) > 0 && (iy + y) < inbitmap.Height && (iy + y) > 0)
-                                {
-                                    inbitmap.SetPixel(ix + x, iy + y, iC);
-                                }
-                            }
-                        }
-            */
             return inbitmap;
         }
         public Bitmap GetChestScreenshot()
@@ -522,6 +504,12 @@ namespace AutoTable
             BackgroundPicturebox.Visible = false;
 
             minecraftDanceGif = Properties.Resources.MinecraftDanceGif;
+
+
+
+            Color bestcolor = Color.FromArgb(0, (int)GreenTriggerNumeric.Value, 0);
+            GreenTriggerNumeric.BackColor = bestcolor;
+
         }
 
 
