@@ -155,7 +155,7 @@ namespace AutoTable
             this.GridTopNumeric.Size = new System.Drawing.Size(76, 20);
             this.GridTopNumeric.TabIndex = 9;
             this.GridTopNumeric.Value = new decimal(new int[] {
-            11,
+            13,
             0,
             0,
             0});
@@ -182,7 +182,7 @@ namespace AutoTable
             this.GreenTriggerNumeric.Size = new System.Drawing.Size(42, 20);
             this.GreenTriggerNumeric.TabIndex = 12;
             this.GreenTriggerNumeric.Value = new decimal(new int[] {
-            255,
+            90,
             0,
             0,
             0});
@@ -281,7 +281,7 @@ namespace AutoTable
             this.sizeAvgNumeric.Size = new System.Drawing.Size(76, 20);
             this.sizeAvgNumeric.TabIndex = 21;
             this.sizeAvgNumeric.Value = new decimal(new int[] {
-            2,
+            4,
             0,
             0,
             0});
