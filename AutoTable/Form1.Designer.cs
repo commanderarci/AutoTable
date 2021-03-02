@@ -235,12 +235,14 @@ namespace AutoTable
             // 
             // ExperimentalButton
             // 
+            this.ExperimentalButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.ExperimentalButton.Location = new System.Drawing.Point(888, 104);
             this.ExperimentalButton.Name = "ExperimentalButton";
             this.ExperimentalButton.Size = new System.Drawing.Size(129, 23);
             this.ExperimentalButton.TabIndex = 18;
             this.ExperimentalButton.Text = "Experimental";
             this.ExperimentalButton.UseVisualStyleBackColor = true;
+            this.ExperimentalButton.Visible = false;
             this.ExperimentalButton.Click += new System.EventHandler(this.ExperimentalButton_Click);
             // 
             // CandidateViewToggle_Button

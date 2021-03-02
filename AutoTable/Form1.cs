@@ -125,121 +125,112 @@ namespace AutoTable
             }
 
         }
-
-
         bool clickToggle = false;
         ClickCandidate oldBestCanditate;
-        List<ClickCandidate> oldCanditatesList = new List<ClickCandidate>();
+        ClickCandidate bestCandidate;
         public void MainEventChain()
         {
-            //Get bitmapmap 
-            Bitmap workbitmap = GetChestScreenshot();
-            //Settings
-            int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
-            int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
 
-            //Get all canditates
-            List<ClickCandidate> candidateslist = new List<ClickCandidate>();
-            for (int x = 0; x < gridLeft; x++)
+            if (clickToggle)
             {
-                for (int y = 0; y < gridTop; y++)
+                //Click
+                //Click on position
+                DoMouseClick(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
+                CounterClicker();
+                clickToggle = !clickToggle;
+
+                //Add to history
+
+                bestCandidate = null;
+            }
+            else
+            {
+                //Find and move mouse to best click position
+
+                //Get bitmapmap 
+                Bitmap workbitmap = GetChestScreenshot();
+                //Settings
+                int gridLeft = (int)GridLeftNumeric.Value, gridTop = (int)GridTopNumeric.Value;
+                int offsetLeft = workbitmap.Width / gridLeft, offsetTop = workbitmap.Width / gridTop;
+
+                //Get all canditates
+                List<ClickCandidate> candidateslist = new List<ClickCandidate>();
+                for (int x = 0; x < gridLeft; x++)
                 {
-                    if (x * offsetLeft > 0 && x * offsetLeft < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
+                    for (int y = 0; y < gridTop; y++)
                     {
-                        //For each position
-                        ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
-                        if (!BlackListerColors.Contains(newCandidate._color))
+                        if (x * offsetLeft > 0 && x * offsetLeft < workbitmap.Width && y * offsetTop > 0 && y * offsetTop < workbitmap.Height)
                         {
-                            candidateslist.Add(newCandidate);
+                            //For each position
+                            ClickCandidate newCandidate = new ClickCandidate(x * offsetLeft, y * offsetTop, GetAverageColor(x * offsetLeft, y * offsetTop, workbitmap));
+                            if (!BlackListerColors.Contains(newCandidate._color))
+                            {
+                                candidateslist.Add(newCandidate);
+                            }
                         }
                     }
                 }
-            }
 
-
-
-            //Now compare all the canditates and take the best one
-            ClickCandidate bestCandidate = new ClickCandidate(0, 0, Color.FromArgb(0, 0, 0));
-            foreach (ClickCandidate candidate in candidateslist)
-            {
-                float greenValue = candidate._color.G - candidate._color.R - candidate._color.B;
-                if (greenValue > bestCandidate._color.G)
+                //Now compare all the canditates and take the best one
+                bestCandidate = new ClickCandidate(0, 0, Color.FromArgb(0, 0, 0));
+                foreach (ClickCandidate candidate in candidateslist)
                 {
-                    workbitmap = DrawCircle(candidate.posX, candidate.posY, workbitmap, Color.GreenYellow);
-                    bestCandidate = candidate;
+                    float greenValue = candidate._color.G - candidate._color.R - candidate._color.B;
+                    if (greenValue > bestCandidate._color.G)
+                    {
+                        workbitmap = DrawCircle(candidate.posX, candidate.posY, workbitmap, Color.GreenYellow);
+                        bestCandidate = candidate;
+                    }
                 }
-            }
 
 
-            //If it passed the treshhold value its good
-            if (bestCandidate._color.G > GreenTriggerNumeric.Value)
-            {
-                if (clickToggle)
-                {
-                    //Click on position
-                    DoMouseClick(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
-                    CounterClicker();
-                    clickToggle = !clickToggle;
-
-                    //Add to history
-                    oldCanditatesList.Add(bestCandidate);
-                }
-                else
+                //If it passed the treshhold value its good
+                if (bestCandidate._color.G > GreenTriggerNumeric.Value)
                 {
                     //Move to position
                     DoMouseMove(this.Left + 8 + 250 + bestCandidate.posX + 5, this.Top + 32 + 50 + bestCandidate.posY + 15);
                     clickToggle = !clickToggle;
                 }
-            }
-            else
-            {
-                oldCanditatesList = new List<ClickCandidate>();
-            }
 
-
-
-            CandidatesLabel.Text = "Candidates: " + candidateslist.Count();
-            if (viewCandidates)
-            {
-                Bitmap candidateViewBitMap = new Bitmap((int)GridLeftNumeric.Value, (int)GridTopNumeric.Value, PixelFormat.Format32bppArgb);
-
-                foreach (ClickCandidate candidate in candidateslist)
+                //Visual Stimuli
+                CandidatesLabel.Text = "Candidates: " + candidateslist.Count();
+                if (viewCandidates)
                 {
-                    int Gcolor = candidate._color.G - candidate._color.R - candidate._color.B;
-                    if (Gcolor < 0)
-                        Gcolor = 0;
-                    if (Gcolor > 255)
-                        Gcolor = 255;
+                    Bitmap candidateViewBitMap = new Bitmap((int)GridLeftNumeric.Value, (int)GridTopNumeric.Value, PixelFormat.Format32bppArgb);
 
-                    Color tempColor = candidate._color;
-                    candidateViewBitMap.SetPixel(candidate.posX / offsetLeft, candidate.posY / offsetTop, tempColor);
-                }
-
-                ClickPicturebox.Image = candidateViewBitMap;
-
-            }
-            else
-            {
-                //Color the best one
-                Color tempcolor = Color.FromArgb(0, 255, 0);
-                workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
-                //Makes tracking lines
-                foreach (ClickCandidate item in oldCanditatesList)
-                {
-                    if (oldBestCanditate != null)
+                    foreach (ClickCandidate candidate in candidateslist)
                     {
-                        workbitmap = DrawLine(workbitmap, oldBestCanditate.posX, oldBestCanditate.posY, item.posX, item.posY, Color.Green);
+                        int Gcolor = candidate._color.G - candidate._color.R - candidate._color.B;
+                        if (Gcolor < 0)
+                            Gcolor = 0;
+                        if (Gcolor > 255)
+                            Gcolor = 255;
+
+                        Color tempColor = Color.FromArgb(0, Gcolor, 0);
+                        candidateViewBitMap.SetPixel(candidate.posX / offsetLeft, candidate.posY / offsetTop, tempColor);
                     }
-                    oldBestCanditate = item;
+
+                    ClickPicturebox.Image = candidateViewBitMap;
+
                 }
-                //smol preview
-                ClickPicturebox.Image = workbitmap;
+                else
+                {
+                    //Color the best one
+                    Color tempcolor = Color.FromArgb(0, 255, 0);
+                    workbitmap = DrawCircle(bestCandidate.posX * offsetLeft, bestCandidate.posY * offsetTop, workbitmap, tempcolor);
+                    //smol preview
+                    ClickPicturebox.Image = workbitmap;
+                }
             }
+
+
+
+
 
 
         }
 
-        public void ExperimentalRoutine()
+/*        public void ExperimentalRoutine()
         {
             //Get bitmapmap 
             Bitmap workbitmap = GetChestScreenshot();
@@ -341,7 +332,7 @@ namespace AutoTable
 
 
 
-        }
+        }*/
 
 
         public Bitmap DrawLine(Bitmap inputBMap, int X1, int Y1, int X2, int Y2, Color icolor, int Thickness = 3)
@@ -447,7 +438,7 @@ namespace AutoTable
         {
             if (experimental)
             {
-                ExperimentalRoutine();
+/*                ExperimentalRoutine();*/
                 timer1.Interval = 300 + GetIntRandomNumber(-200, 200);
                 label1.Text = "TICKRATE" + timer1.Interval;
             }
@@ -504,8 +495,6 @@ namespace AutoTable
             BackgroundPicturebox.Visible = false;
 
             minecraftDanceGif = Properties.Resources.MinecraftDanceGif;
-
-
 
             Color bestcolor = Color.FromArgb(0, (int)GreenTriggerNumeric.Value, 0);
             GreenTriggerNumeric.BackColor = bestcolor;
