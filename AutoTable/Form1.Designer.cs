@@ -116,6 +116,11 @@ namespace AutoTable
             // GridLeftNumeric
             // 
             this.GridLeftNumeric.Location = new System.Drawing.Point(941, 144);
+            this.GridLeftNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.GridLeftNumeric.Name = "GridLeftNumeric";
             this.GridLeftNumeric.Size = new System.Drawing.Size(76, 20);
             this.GridLeftNumeric.TabIndex = 7;
@@ -167,7 +172,7 @@ namespace AutoTable
             // 
             // GreenTriggerNumeric
             // 
-            this.GreenTriggerNumeric.Location = new System.Drawing.Point(1074, 172);
+            this.GreenTriggerNumeric.Location = new System.Drawing.Point(1127, 144);
             this.GreenTriggerNumeric.Maximum = new decimal(new int[] {
             255,
             0,
@@ -205,7 +210,7 @@ namespace AutoTable
             // TriggerColorLabel
             // 
             this.TriggerColorLabel.AutoSize = true;
-            this.TriggerColorLabel.Location = new System.Drawing.Point(1071, 146);
+            this.TriggerColorLabel.Location = new System.Drawing.Point(1023, 146);
             this.TriggerColorLabel.Name = "TriggerColorLabel";
             this.TriggerColorLabel.Size = new System.Drawing.Size(101, 13);
             this.TriggerColorLabel.TabIndex = 15;
